@@ -7,9 +7,9 @@
 4. Make the destination directory and put all copied files in there with new name that is sortable.
 
 ## file_names.txt format
-line 1: csv file
-line 2: source directory
-line 3: destination directory
+line 1: csv file   
+line 2: source directory   
+line 3: destination directory  
 
 ## How to Use
 1. format file_names.txt file correctly
