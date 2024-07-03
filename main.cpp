@@ -1,4 +1,7 @@
+#include <bits/stdc++.h>
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <fstream>
 #include <sstream>
 #include "row.cpp"
@@ -30,17 +33,17 @@ void rename_files(string csv_name, string vsi_name, string destination) {
 
     while(getline(csv, row_data)) { //iterate through each row
         string* parsed_data = parse_data(row_data);
-        row r(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5]);
+        row r(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5], parsed_data[6]);
 
         copy_rename(r, vsi_name, destination);
-        delete parsed_data;
+        //delete parsed_data;
     }
     csv.close();
 }
 
 string* parse_data(string row_data) {
     //parse the data with delimiter ", "
-    string *parsed_data = new string[6];
+    string *parsed_data = new string[sizeof(string) * 7];
     char delimiter = ',';
     int i = 0;
     istringstream stream(row_data);
@@ -56,12 +59,21 @@ void copy_rename(row r, string source, string destination) {
     string source_path = source + "\\" + r.get_file_name();
     string dest_path = destination + "\\" + r.get_rename();
     //todo: copy source file to the destination
+    mkdir("sorted_files");
     ofstream dest_file(dest_path);
     ifstream source_file(source_path);
     if(source_file && dest_file) {
         string line;
         while(getline(source_file, line)) {
             dest_file << line << "\n";
+        }
+    }
+    else {
+        if(!source_file) {
+            cout << "source file did not read for " + source_path + "\n";
+        }
+        if(!dest_file) {
+            cout << "destination file did not read for " + dest_path + "\n";
         }
     }
     source_file.close();
