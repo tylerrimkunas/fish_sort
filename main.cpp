@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "row.cpp"
-#include <filesystem>
 
 using namespace std;
 
@@ -33,16 +33,38 @@ void rename_files(string csv_name, string vsi_name, string destination) {
         row r(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5]);
 
         copy_rename(r, vsi_name, destination);
+        delete parsed_data;
     }
     csv.close();
 }
 
 string* parse_data(string row_data) {
     //parse the data with delimiter ", "
+    string *parsed_data = new string[6];
+    char delimiter = ',';
+    int i = 0;
+    istringstream stream(row_data);
+    string t;
+    while (getline(stream, t, delimiter)) {
+        parsed_data[i++] = t;
+    }
+    return parsed_data;
+
 }
 
 void copy_rename(row r, string source, string destination) {
     string source_path = source + "\\" + r.get_file_name();
     string dest_path = destination + "\\" + r.get_rename();
     //todo: copy source file to the destination
+    ofstream dest_file(dest_path);
+    ifstream source_file(source_path);
+    if(source_file && dest_file) {
+        string line;
+        while(getline(source_file, line)) {
+            dest_file << line << "\n";
+        }
+    }
+    source_file.close();
+    dest_file.close();
+
 }
