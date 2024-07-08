@@ -62,6 +62,10 @@ string row::get_fish_number() {
 
 string row::get_file_name() {
     string file_name = "";
+    if(slide_name.find("5dpf") == std::string::npos) {
+        int i_space = slide_name.find(" ");
+        slide_name = slide_name.substr(0, i_space) + " 5dpf" + slide_name.substr(i_space);
+    }
     file_name.append(slide_name).append(" slide ").append(slide_number).append("_");
     if(slide_extension.length() < 2) {
         file_name.append("0");
