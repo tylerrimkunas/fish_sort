@@ -2,3 +2,5 @@ test_files
 .vscode
 test_csvs
 sorted_files
+unsorted_files
+zip_files

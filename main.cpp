@@ -62,4 +62,12 @@ void copy_rename(row r, string source, string destination) {
     mkdir(destination.c_str());
     string command = "copy " + source_path + " " + dest_path;
     system(command.c_str());
+    ifstream validate;
+    validate.open(dest_path);
+    if(!validate) {
+        cout << source_path + " TO " + dest_path + " FAILED TO COPY";
+    }
+    else {
+        validate.close();
+    }
 }
