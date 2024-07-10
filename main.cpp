@@ -65,7 +65,7 @@ void copy_rename(row r, string source, string destination) {
     ifstream validate;
     validate.open(dest_path);
     if(!validate) {
-        cout << source_path + " TO " + dest_path + " FAILED TO COPY";
+        cout << "\n" + source_path + " TO " + dest_path + " FAILED TO COPY\n";
     }
     else {
         validate.close();
