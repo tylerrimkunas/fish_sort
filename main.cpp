@@ -23,6 +23,9 @@ int main() {
     file_names.close();
 
     rename_files(csv_file, source_files, destination);
+    cout << "\nPlease check for errors then press any button to close\n";
+    char t;
+    cin >> t;
 }
 
 void rename_files(string csv_name, string vsi_name, string destination) {
@@ -62,12 +65,12 @@ void copy_rename(row r, string source, string destination) {
     mkdir(destination.c_str());
     string command = "copy " + source_path + " " + dest_path;
     system(command.c_str());
-    ifstream validate;
-    validate.open(dest_path);
-    if(!validate) {
-        cout << "\n" + source_path + " TO " + dest_path + " FAILED TO COPY\n";
-    }
-    else {
-        validate.close();
-    }
+    // ifstream validate;
+    // validate.open(dest_path);
+    // if(!validate) {
+    //     cout << "\n" + source_path + " TO " + dest_path + " FAILED TO COPY\n";
+    // }
+    // else {
+    //     validate.close();
+    // }
 }
