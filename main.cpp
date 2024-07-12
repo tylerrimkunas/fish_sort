@@ -24,8 +24,7 @@ int main() {
 
     rename_files(csv_file, source_files, destination);
     cout << "\nPlease check for errors then press any button to close\n";
-    char t;
-    cin >> t;
+    system("pause");
 }
 
 void rename_files(string csv_name, string vsi_name, string destination) {
@@ -39,7 +38,7 @@ void rename_files(string csv_name, string vsi_name, string destination) {
         row r(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5], parsed_data[6]);
 
         copy_rename(r, vsi_name, destination);
-        //delete parsed_data;
+        delete[] parsed_data;
     }
     csv.close();
 }
