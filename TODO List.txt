@@ -1,0 +1,8 @@
+1. change system(copy) to filesystem copy to have return and error checking.
+2. Add exception handling when looking for file_names.txt, opening the files, and copying files
+3. Have an error report/missing files report.
+4. Program looks in other/nested directories. (most likely recursive???)
+5. GRAPHICAL USER INTERFACE!!!!!!!!!!!
+6. Unit testing
+7. Make main.cpp more unit testable.
+8. Add a .hpp file for row.cpp
