@@ -16,6 +16,11 @@ void copy_rename(row r, string source, string destination);
 
 int main() {
     ifstream file_names("file_names.txt");
+    if(file_names.fail()) {
+        cout << "\nfile_names.txt not found, please create files_names.txt and follow the format given in the readme\n";
+        getchar();
+        return -1;
+    }
     string csv_file;
     string source_files;
     string destination;
@@ -26,7 +31,7 @@ int main() {
 
     rename_files(csv_file, source_files, destination);
     cout << "\nPlease check for errors then press any button to close\n";
-    system("pause");
+    getchar();
 
 
     /*
