@@ -13,9 +13,9 @@ namespace fs = std::experimental::filesystem;
 
 using namespace std;
 
-void rename_files(string csv_name, string vsi_name, string destination);
 string* parse_data(string row_data);
-void copy_rename(row r, string source, string destination);
+bool copy_rename(row* r, string source, string destination);
+row* get_row(ifstream& csv);
 
 int main() {
     ifstream file_names("file_names.txt");
@@ -24,17 +24,17 @@ int main() {
         getchar();
         return -1;
     }
-    string csv_file;
-    string source_files;
+    string csv_name;
+    string source_name;
     string destination;
-    getline(file_names, csv_file); //todo: exception handling
-    if(!validate_csv(csv_file)) {
+    getline(file_names, csv_name);
+    if(!validate_csv(csv_name)) {
         cout << "\nThe 1st line of file_names.txt is not a csv file. Please fix and rerun program\n";
         getchar();
         return -1;
     }
-    getline(file_names, source_files);
-    if(!validate_source_dir(source_files)) {
+    getline(file_names, source_name);
+    if(!validate_source_dir(source_name)) {
         cout << "\nThe 2nd line of file_names.txt is not a correct directory. Please fix and rerun the program\n";
         getchar();
         return -1;
@@ -47,7 +47,23 @@ int main() {
     }
     file_names.close();
 
-    rename_files(csv_file, source_files, destination);
+    ifstream csv_file(csv_name);
+    if(csv_file.fail()) {
+        cout << "\nError when opening csv file. Terminating program.\n";
+        getchar();
+        return -1;
+    }
+    string temp;
+    getline(csv_file, temp); // skip header
+    row* r = get_row(csv_file);
+    while(r != NULL) {
+        if(!copy_rename(r, source_name, destination)) {
+            cout << "\nERROR file name: " + r->get_file_name() + "\n";
+        }
+        delete r;
+        r = get_row(csv_file);
+    }
+    csv_file.close();
     cout << "\nPlease check for errors then press any button to close\n";
     getchar();
 
@@ -58,8 +74,6 @@ int main() {
     Open file_names.txt if doesn't open, return error message and end program.
     Get the three file names. validate all are correct format and also exist.
     close file_names.txt
-
-    create the destination directory
 
     open the csv file
     call get_row()
@@ -92,20 +106,15 @@ int main() {
     */
 }
 
-void rename_files(string csv_name, string vsi_name, string destination) {
-    ifstream csv(csv_name);
+row* get_row(ifstream& csv) {
     string row_data;
-
-    getline(csv, row_data); //skip header
-
-    while(getline(csv, row_data)) { //iterate through each row
-        string* parsed_data = parse_data(row_data);
-        row r(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5], parsed_data[6]);
-
-        copy_rename(r, vsi_name, destination);
-        delete[] parsed_data;
+    if(!getline(csv, row_data)) { //reaches end of line
+        return NULL;
     }
-    csv.close();
+    string* parsed_data = parse_data(row_data);
+    row* r = new row(parsed_data[0], parsed_data[1], parsed_data[2], parsed_data[3], parsed_data[4], parsed_data[5], parsed_data[6]);
+    delete[] parsed_data;
+    return r;
 }
 
 string* parse_data(string row_data) {
@@ -122,9 +131,9 @@ string* parse_data(string row_data) {
 
 }
 
-void copy_rename(row r, string source, string destination) {
-    string source_path = "\"" + source + "\\" + r.get_file_name() + "\"";
-    string dest_path = "\"" + destination + "\\" + r.get_rename() + "\"";
+bool copy_rename(row* r, string source, string destination) {
+    string source_path = "\"" + source + "\\" + r->get_file_name() + "\"";
+    string dest_path = "\"" + destination + "\\" + r->get_rename() + "\"";
     //todo: copy source file to the destination
     mkdir(destination.c_str());
     string command = "copy " + source_path + " " + dest_path;
