@@ -5,6 +5,8 @@
 #include <fstream>
 #include <sstream>
 #include "row.cpp"
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 using namespace std;
 
