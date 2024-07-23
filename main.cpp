@@ -4,8 +4,11 @@
 #include <sys/types.h>
 #include <fstream>
 #include <sstream>
-#include "row.cpp"
 #include <experimental/filesystem>
+
+#include "row.cpp"
+#include "validate.hpp"
+
 namespace fs = std::experimental::filesystem;
 
 using namespace std;
@@ -25,8 +28,23 @@ int main() {
     string source_files;
     string destination;
     getline(file_names, csv_file); //todo: exception handling
+    if(!validate_csv(csv_file)) {
+        cout << "\nThe 1st line of file_names.txt is not a csv file. Please fix and rerun program\n";
+        getchar();
+        return -1;
+    }
     getline(file_names, source_files);
+    if(!validate_source_dir(source_files)) {
+        cout << "\nThe 2nd line of file_names.txt is not a correct directory. Please fix and rerun the program\n";
+        getchar();
+        return -1;
+    }
     getline(file_names, destination);
+    if(!validate_destination_dir(destination)) {
+        cout << "\nThe 3rd line of file_names.txt cannot be a destination directory. Please fix and rerun the program\n";
+        getchar();
+        return -1;
+    }
     file_names.close();
 
     rename_files(csv_file, source_files, destination);
