@@ -15,7 +15,7 @@ bool validate_source_dir(string s) {
 
 bool validate_destination_dir(string s) {
     path p(s);
-    if(!exists(p)) {
+    if(!is_directory(p)) {
         if(!create_directory(p)) {
             return false;
         }
