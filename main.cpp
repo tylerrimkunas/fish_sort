@@ -27,6 +27,46 @@ int main() {
     rename_files(csv_file, source_files, destination);
     cout << "\nPlease check for errors then press any button to close\n";
     system("pause");
+
+
+    /*
+    New format of main.cpp
+    int main() {
+    Open file_names.txt if doesn't open, return error message and end program.
+    Get the three file names. validate all are correct format and also exist.
+    close file_names.txt
+
+    create the destination directory
+
+    open the csv file
+    call get_row()
+
+    call copy_rename()
+
+    convert files to tiff (temp)
+
+    create power point
+    8 images per slide
+    have variable indicating fish number
+    if next file's first character differs than the fish number create new slide
+    
+    Once done, delete temp files
+    }
+
+    row get_row() {
+    getline from csv file
+    call parse_data()
+    create new row and return row
+    }
+
+    string* parse_data() {
+    stays the same as already implemented
+    }
+
+    bool copy_rename() {
+
+    }
+    */
 }
 
 void rename_files(string csv_name, string vsi_name, string destination) {
