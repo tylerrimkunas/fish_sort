@@ -132,18 +132,7 @@ string* parse_data(string row_data) {
 }
 
 bool copy_rename(row* r, string source, string destination) {
-    string source_path = "\"" + source + "\\" + r->get_file_name() + "\"";
-    string dest_path = "\"" + destination + "\\" + r->get_rename() + "\"";
-    //todo: copy source file to the destination
-    mkdir(destination.c_str());
-    string command = "copy " + source_path + " " + dest_path;
-    system(command.c_str());
-    // ifstream validate;
-    // validate.open(dest_path);
-    // if(!validate) {
-    //     cout << "\n" + source_path + " TO " + dest_path + " FAILED TO COPY\n";
-    // }
-    // else {
-    //     validate.close();
-    // }
+    fs::path source_path("\"" + source + "\\" + r->get_file_name() + "\"");
+    fs::path dest_path("\"" + destination + "\\" + r->get_rename() + "\"");
+    return fs::copy_file(source_path, dest_path);
 }
