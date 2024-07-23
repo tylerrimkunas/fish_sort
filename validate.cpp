@@ -10,7 +10,8 @@ bool validate_csv(string s) {
 }
 
 bool validate_source_dir(string s) {
-    return fs::is_directory(path p(s));
+    fs::path p(s);
+    return fs::is_directory(p);
 }
 
 bool validate_destination_dir(string s) {
