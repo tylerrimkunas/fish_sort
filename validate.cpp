@@ -1,22 +1,22 @@
 #include "validate.hpp"
 
 bool validate_csv(string s) {
-    path p(s);
+    fs::path p(s);
     if(p.extension().compare(".csv")) {
         return false;
     }
 
-    return exists(p);
+    return fs::exists(p);
 }
 
 bool validate_source_dir(string s) {
-    return is_directory(path p(s));
+    return fs::is_directory(path p(s));
 }
 
 bool validate_destination_dir(string s) {
-    path p(s);
-    if(!is_directory(p)) {
-        if(!create_directory(p)) {
+    fs::path p(s);
+    if(!fs::is_directory(p)) {
+        if(!fs::create_directory(p)) {
             return false;
         }
     }

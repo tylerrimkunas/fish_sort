@@ -1,5 +1,6 @@
 #include <experimental/filesystem>
 using namespace std;
+namespace fs = std::experimental::filesystem;
 
 /*
 These functions are meant to confirm the existence and correct formatting of the file names in file_names.txt
