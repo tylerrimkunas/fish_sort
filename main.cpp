@@ -132,7 +132,11 @@ string* parse_data(string row_data) {
 }
 
 bool copy_rename(row* r, string source, string destination) {
-    fs::path source_path("\"" + source + "\\" + r->get_file_name() + "\"");
-    fs::path dest_path("\"" + destination + "\\" + r->get_rename() + "\"");
-    return fs::copy_file(source_path, dest_path);
+    fs::path source_path = "\"" + source + "\\" + r->get_file_name() + "\"";
+    fs::path dest_path = "\"" + destination + "\\" + r->get_rename() + "\"";
+    try {
+        return fs::copy_file(source_path, dest_path);
+    } catch(exception e) {
+        return false;
+    }
 }
