@@ -58,7 +58,7 @@ int main() {
     row* r = get_row(csv_file);
     while(r != NULL) {
         if(!copy_rename(r, source_name, destination)) {
-            cout << "\nERROR file name: " + r->get_file_name() + "\n";
+            cout << "ERROR file name: " + r->get_file_name() + "\n";
         }
         delete r;
         r = get_row(csv_file);
@@ -132,11 +132,12 @@ string* parse_data(string row_data) {
 }
 
 bool copy_rename(row* r, string source, string destination) {
-    fs::path source_path = "\"" + source + "\\" + r->get_file_name() + "\"";
-    fs::path dest_path = "\"" + destination + "\\" + r->get_rename() + "\"";
+    fs::path source_path = fs::path(source) / r->get_file_name();
+    fs::path dest_path = fs::path(destination) / r->get_rename();
     try {
         return fs::copy_file(source_path, dest_path);
-    } catch(exception e) {
+    } catch(const exception& e) {
+        cerr << e.what() << endl;
         return false;
     }
 }
