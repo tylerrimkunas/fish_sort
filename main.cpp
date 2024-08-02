@@ -6,7 +6,7 @@
 #include <sstream>
 #include <experimental/filesystem>
 
-#include "row.cpp"
+#include "row.hpp"
 #include "validate.hpp"
 
 namespace fs = std::experimental::filesystem;
