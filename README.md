@@ -14,3 +14,9 @@ line 3: destination directory
 ## How to Use
 1. format file_names.txt file correctly
 2. Run Executable file
+
+## Future Plans
+1. Use .hpp files (In progress)
+2. Convert .vsi to .tiff files
+3. Create powerpoint with .tiff organized by fish number
+4. Create front-end
