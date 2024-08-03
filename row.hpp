@@ -26,3 +26,5 @@ public:
     string get_file_name();
     string get_rename();
 };
+
+#endif // ROW_HPP
